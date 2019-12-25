@@ -6,48 +6,16 @@
 <link rel="icon" type="image/x-icon" href="https://www.example.com/images/dinosaur.jpg">
 
        <title> app-draw </title>
+       
        <script src="https://craig.global.ssl.fastly.net/js/mousetrap/mousetrap.min.js?a4098"></script>
+       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+       <link rel="stylesheet" href="style.css">
 
-       <style>
-@keyframes border {
-0%, 100% {
-background-color: #eeeeee;
-}
-50% {
-border:2px solid red;
-background-color: #ececec;
-}
-}
-         body {
-           margin: 0;
-padding: 0;
-background-color: #eeeeee;
-         }
-button {
- border-radius: 20px;
- background-color: white;
- border: 2px solid red ;
- margin: 20 0 0 0;
-width: 20%;
- margin-left: 4%;
-box-shadow: 20px 20px 20px rgba(0,0,0,0.4);
-}
-
-#myCanvas {
-
-position: relative;
-margin: 20 50;
-top: 20px;
-animation: border 2s infinite;
-}
-#canvasimg {
- margin: 20 25
-}
-       </style>
+      
    </head>
 
    <body data-rsssl=1>
-       <canvas id=myCanvas width=1000 height=1000 style="border: 2px solid black;"> </canvas>
+       <canvas id="myCanvas" width=1000 height=1000 style="border: 2px solid black;"> </canvas>
 <button class="btn0" onclick="declareColor()">Change color (c)</button>
 <button class="btn1" onclick="declareSize()">Change size (s)</button>
 <button class="btn2" onclick="refresh()">Clear (cmd+c / ctrl+c)</button>
@@ -55,106 +23,7 @@ animation: border 2s infinite;
 <br><br>
 <img id="canvasImg">
 
-       <script>
-var pColor = "black";
-var pRadius = "10";
-var cWidth = prompt("Width of your image / canvas? Tip: Use \"default\" for screen size.","default")
-var cHeight = prompt("Height of your image / canvas? Tip: Use \"default\" for screen size.","default")
-
-
-var ctx = myCanvas.getContext("2d"); 
-
-ctx.canvas.width  = cWidth === "default" ? window.innerWidth-100 : cWidth;
- ctx.canvas.height = cHeight === "default" ? window.innerHeight-100 : cHeight;
-
- document.getElementById("myCanvas").style.marginLeft = (window.innerWidth - ctx.canvas.width)/2;
-
-function reportWindowSize() {
-ctx.canvas.width = window.innerWidth;
-ctx.canvas.height = window.innerHeight-50;
-}
-
-function getRandomColor() {
- var letters = '0123456789ABCDEF';
- var color = '#';
- for (var i = 0; i < 6; i++) {
-   color += letters[Math.floor(Math.random() * letters.length)];
- }
- return color;
-}
-
-function declareSize() {
-pRadius = prompt("Size?","20");
-}
-
-function declareColor() {
-pColor = prompt("Color? Tip: Use \"random\" for random color and \"clear\" for eraser.",getRandomColor());
-}
-       
-function Leave_a_Mark(MyWhere) {
-  var rect = myCanvas.getBoundingClientRect();
-  ctx.beginPath();
-ctx.fillStyle = (pColor === "random" ? getRandomColor() : pColor);
-  ctx.arc(MyWhere.clientX - rect.left, MyWhere.clientY - rect.top, pRadius, 0, Math.PI * 2);
-  pColor === "clear" ? ctx.clearRect(MyWhere.clientX - rect.left-pRadius*1.4, MyWhere.clientY - rect.top-pRadius*1.4, pRadius*2.8, pRadius*2.8) : ctx.fill();
-  }
-
-
-function MyTouchMoveHandler(MyEvent) {
-  for (var i=0; i < MyEvent.touches.length; i++) {
-       Leave_a_Mark(MyEvent.touches[i]);
-       }
-  MyEvent.preventDefault()
-  }
-  
-  
-var mouse_is_down = false;
-
-function refresh() {
-ctx.clearRect(0, 0, myCanvas.width, myCanvas.height);
-}
-
-function MyMouseDownHandler(MyEvent) {
-  if (MyEvent.which == 1) mouse_is_down= true;
-  }
-
-function MyMouseUpHandler(MyEvent) {
-  if (MyEvent.which == 1) mouse_is_down= false;
-  }
-
-function MyMouseMoveHandler(MyEvent) {
-  if (mouse_is_down) Leave_a_Mark(MyEvent);
-  }
-var dwnld = document.getElementById("myDownload");
-var dataURL;
-myCanvas.addEventListener("mousedown", MyMouseDownHandler);                                                               
-myCanvas.addEventListener("mouseup", MyMouseUpHandler); 
-myCanvas.addEventListener("touchmove", MyTouchMoveHandler);
-myCanvas.addEventListener("mousemove", MyMouseMoveHandler);   
-function display(){
-      dataURL = myCanvas.toDataURL();
-      document.getElementById("canvasImg").src=dataURL;
-};
-      Mousetrap.bind("space", function() {display();});
-      Mousetrap.bind(['command+c', 'ctrl+c'], function() {refresh();});
-      Mousetrap.bind(['c', '#'], function() {declareColor();});
-      Mousetrap.bind('s', function() {declareSize();});
-      Mousetrap.bind('r e d', function() {pColor = "red";});
-      Mousetrap.bind('y e l l o w', function() {pColor = "yellow";});
-      Mousetrap.bind('g r e e n', function() {pColor = "green";});
-      Mousetrap.bind('b l u e', function() {pColor = "blue";});
-      Mousetrap.bind('b r o w n', function() {pColor = "brown";});
-      Mousetrap.bind('b l a c k', function() {pColor = "black";});
-      Mousetrap.bind('d e f a u l t', function() {pColor = "black";});
-      Mousetrap.bind('p u r p l e', function() {pColor = "purple";});
-      Mousetrap.bind('p i n k', function() {pColor = "pink";});
-      Mousetrap.bind('w h i t e', function() {pColor = "white";});
-      Mousetrap.bind('g r e y', function() {pColor = "grey";});
-      Mousetrap.bind('l i g h t b l u e', function() {pColor = "lightblue";});
-      Mousetrap.bind('d a r k b l u e', function() {pColor = "darkblue";});
-      Mousetrap.bind('r a n d o m', function() {pColor = "random";});
-       
-       </script>
+       <script src="script.js"></script>
    </body>
 </html> 
 
