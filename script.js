@@ -186,7 +186,7 @@ function display(){
       Mousetrap.bind('d a r k b l u e', function() {pColor = "darkblue";});
       Mousetrap.bind('d a r k g r e e n', function() {pColor = "darkgreen";});
       Mousetrap.bind('r a n d o m', function() {pColor = "random";});
-      Mousetrap.bind('a q u a'), function() {pColor = "aqua";});
+      Mousetrap.bind('a q u a', function() {pColor = "aqua";});
 
     
        
